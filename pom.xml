@@ -28,6 +28,8 @@
 	</parent>
 
     <dependencies>
+    
+    	<!-- Spring Boot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -37,6 +39,26 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        
+        	
+		<!-- Hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+		</dependency>
+				
+		<!--  APIs -->
+		<dependency>
+	    	<groupId>javax</groupId>
+	    	<artifactId>javaee-web-api</artifactId>
+	    	<version>7.0</version>
+	    	<scope>provided</scope>
+		</dependency>
+		<dependency>
+  			<groupId>javax.servlet</groupId>
+  			<artifactId>javax.servlet-api</artifactId>
+  			<scope>test</scope>
+		</dependency>
 
     </dependencies>
 
