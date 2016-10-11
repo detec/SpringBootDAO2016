@@ -8,7 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  */
 
-@SpringBootApplication(scanBasePackages = { "sample.controller", "sample.config", "sample.util", "sample.dao.impl" })
+@SpringBootApplication(scanBasePackages = { "sample.controller", "sample.config", "sample.util", "sample.dao.impl",
+		"sample.service.impl" })
 public class Application {
 
 	public static void main(String[] args) {
