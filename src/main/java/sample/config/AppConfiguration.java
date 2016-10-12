@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 /**
+ * Helper config class for embedded Tomcat initialization.
+ *
  * @author Andrii Duplyk
  *
  */

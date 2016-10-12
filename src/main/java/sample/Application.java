@@ -4,11 +4,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
+ * Main launch class.
+ *
  * @author Andrii Duplyk
  *
  */
 
-@SpringBootApplication(scanBasePackages = { "sample.controller", "sample.config", "sample.util", "sample.dao.impl",
+@SpringBootApplication(scanBasePackages = { "sample.controller", "sample.config", "sample.util", "sample.dao.jpaimpl",
 		"sample.service.impl" })
 public class Application {
 
