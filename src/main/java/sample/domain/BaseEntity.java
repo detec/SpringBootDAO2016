@@ -17,7 +17,6 @@ import org.slf4j.LoggerFactory;
  *
  *
  */
-
 @MappedSuperclass
 public class BaseEntity implements Serializable {
 
@@ -27,7 +26,7 @@ public class BaseEntity implements Serializable {
 
 	@Id
 	@GeneratedValue
-	protected Long code;
+	protected Long id;
 
 	/**
 	 * Jackson-required constructor
@@ -41,8 +40,8 @@ public class BaseEntity implements Serializable {
 	 *
 	 * @return Long id value
 	 */
-	public Long getCode() {
-		return code;
+	public Long getId() {
+		return id;
 	}
 
 	/**
@@ -51,8 +50,8 @@ public class BaseEntity implements Serializable {
 	 * @param code
 	 *            set id field value
 	 */
-	public void setCode(Long code) {
-		this.code = code;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	/**
