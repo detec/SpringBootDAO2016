@@ -19,6 +19,7 @@ import sample.domain.BaseEntity;
 import sample.domain.SalesOrder;
 import sample.exceptions.BusinessLogicException;
 import sample.service.GenericService;
+import sample.util.Constants;
 
 /**
  * Test controller for test SalesOrder
@@ -27,7 +28,7 @@ import sample.service.GenericService;
  *
  */
 @RestController
-@RequestMapping("/testorders")
+@RequestMapping(Constants.ORDER_ENDPOINT)
 public class TestOrderController {
 
 	@Resource

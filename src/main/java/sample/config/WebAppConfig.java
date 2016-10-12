@@ -39,4 +39,10 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 				.defaultContentType(MediaType.APPLICATION_JSON);
 	}
 
+	// @Override
+	// public void configureMessageConverters(List<HttpMessageConverter<?>>
+	// converters) {
+	// // converters.add(e)
+	// }
+
 }
