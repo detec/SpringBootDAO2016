@@ -28,6 +28,12 @@ public class SampleRest {
 		return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
 	}
 
+	/**
+	 * Endpoint to test LocalDateTime output, taht should be formatted as ISO
+	 * date.
+	 *
+	 * @return wrapped entity
+	 */
 	@GetMapping("now")
 	public ResponseEntity<LocalDateTime> getNow() {
 		return new ResponseEntity<>(LocalDateTime.now(), HttpStatus.OK);
