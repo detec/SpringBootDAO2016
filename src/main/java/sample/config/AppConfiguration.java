@@ -17,7 +17,7 @@ import sample.util.CustomObjectMapper;
  * @author Andrii Duplyk
  *
  */
-@PropertySource(value = "classpath:datasource.properties")
+@PropertySource(value = { "classpath:datasource.properties", "classpath:application.properties" })
 @Configuration
 public class AppConfiguration {
 
@@ -27,7 +27,7 @@ public class AppConfiguration {
 		return factory;
 	}
 
-	@Bean
+	@Bean("customObjectMapper")
 	@Primary
 	public ObjectMapper customObjectMapper() {
 		CustomObjectMapper customObjectMapper = new CustomObjectMapper();
