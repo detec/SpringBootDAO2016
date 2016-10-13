@@ -5,7 +5,7 @@ This is a template project to build with Maven for DAO layer and REST service. I
 - Hibernate 5.2;
 - Spring Boot 1.4;
 - Jackson Databind 2.8 with JSR310 support;
-- sl4j/Logback
+- sl4j/Logback;
 - MySQL 5;
 - Java 8.
 
