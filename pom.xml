@@ -116,6 +116,34 @@
                     </execution>
                 </executions>
             </plugin>
+            
+     <plugin>
+     	<groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        	<configuration>
+            	<archive>
+                	<manifest>
+                    	<addClasspath>true</addClasspath>
+                            <mainClass>sample.Application</mainClass>
+                    </manifest>
+            	</archive>
+     		</configuration>
+     </plugin>
+
+     <plugin>
+     	<artifactId>maven-assembly-plugin</artifactId>
+        	<configuration>
+            	<archive>
+                	<manifest>
+                    	<mainClass>sample.Application</mainClass>
+                    </manifest>
+                </archive>
+                <descriptorRefs>
+                	<descriptorRef>jar-with-dependencies</descriptorRef>
+                </descriptorRefs>
+                <appendAssemblyId>false</appendAssemblyId>
+            </configuration>
+     </plugin>            
         </plugins>
     </build>
 
