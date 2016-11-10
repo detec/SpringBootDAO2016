@@ -3,6 +3,7 @@ package sample.domain;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Optional;
 
 import javax.persistence.GeneratedValue;
@@ -119,4 +120,25 @@ public class BaseEntity implements Serializable {
 		while (curClass != null);
 
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(this.id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		BaseEntity other = (BaseEntity) obj;
+		return Objects.equals(this.id, other.id);
+	}
+
 }

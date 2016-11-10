@@ -1,6 +1,8 @@
 package sample;
 
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -15,13 +17,22 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import sample.config.AppConfiguration;
+import sample.config.DataBaseConfig;
+import sample.config.WebAppConfig;
 import sample.controller.TestOrderController;
 import sample.domain.SalesOrder;
 import sample.domain.SalesOrderOrderLines;
@@ -34,12 +45,21 @@ import sample.util.CustomObjectMapper;
  *
  */
 // @RunWith(MockitoJUnitRunner.class)
-@RunWith(SpringRunner.class)
-// @ComponentScan(basePackages = { "sample.util", "sample.dao",
-// "sample.controller", "sample.dao" })
-// @ContextConfiguration(classes = { AppConfiguration.class,
-// DataBaseConfig.class, WebAppConfig.class })
+// @RunWith(SpringRunner.class)
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { AppConfiguration.class, DataBaseConfig.class, WebAppConfig.class })
+@WebAppConfiguration
 public class ControllerTest {
+
+	/**
+	 * Note that the converter needs to be autowired into the test in order for
+	 * MockMvc to recognize it in the setup() method.
+	 */
+	@Autowired
+	private MappingJackson2HttpMessageConverter jackson2HttpMessageConverter;
+
+	@Autowired
+	private WebApplicationContext context;
 
 	/**
 	 * REST controller
@@ -55,15 +75,24 @@ public class ControllerTest {
 
 	private MockMvc mockMvc;
 
-	private ObjectMapper objectMapper = new CustomObjectMapper();
+	private ObjectMapper objectMapper;
 
 	@Before
 	public void setup() {
-		this.mockMvc = MockMvcBuilders.standaloneSetup(unit).build();
+		MockitoAnnotations.initMocks(this);
+
+		this.mockMvc = MockMvcBuilders.standaloneSetup(unit)
+
+				.setMessageConverters(this.jackson2HttpMessageConverter) // Important!
+				.build();
+
+		this.objectMapper = context.getBean(CustomObjectMapper.class);
+
 	}
 
 	private SalesOrder generateSampleSalesOrder() {
 		SalesOrder salesOrder = new SalesOrder();
+		salesOrder.setId(1L);
 		salesOrder.setDate(LocalDateTime.now());
 		salesOrder.setTotalPrice(new BigDecimal("15.2"));
 
@@ -92,7 +121,7 @@ public class ControllerTest {
 		mockMvc.perform(post(Constants.ORDER_ENDPOINT).content(postData).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isCreated()).andExpect(content().string(""));
 
-		// verify(genericService).save(salesOrder);
+		verify(genericService).save(salesOrder);
 	}
 
 	@Test
@@ -104,10 +133,10 @@ public class ControllerTest {
 		when(genericService.findAll(SalesOrder.class)).thenReturn(salesOrders);
 
 		String expectedSalesOrdersJson = objectMapper.writeValueAsString(salesOrders);
-		// mockMvc.perform(get(Constants.ORDER_ENDPOINT)).andExpect(status().isOk())
-		// .andExpect(content().string(expectedSalesOrdersJson));
+		mockMvc.perform(get(Constants.ORDER_ENDPOINT)).andExpect(status().isOk())
+				.andExpect(content().string(expectedSalesOrdersJson));
 
-		// verify(genericService).findAll(SalesOrder.class);
+		verify(genericService).findAll(SalesOrder.class);
 	}
 
 }
