@@ -18,6 +18,7 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<hibernate.version>5.2.2.Final</hibernate.version>
+		<springfox.swagger.version>2.6.0</springfox.swagger.version>
     </properties>
 
 	<packaging>jar</packaging>
@@ -88,13 +89,24 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
-		
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>test</scope>
 		</dependency>
-			
+
+		<!-- Springfox swagger API documentation. -->
+		<dependency>
+	    	<groupId>io.springfox</groupId>
+	    	<artifactId>springfox-swagger2</artifactId>
+	    	<version>${springfox.swagger.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>io.springfox</groupId>
+		    <artifactId>springfox-swagger-ui</artifactId>
+		    <version>${springfox.swagger.version}</version>
+		</dependency>
+					
     </dependencies>
 
 
@@ -124,7 +136,7 @@
             	<archive>
                 	<manifest>
                     	<addClasspath>true</addClasspath>
-                            <mainClass>sample.Application</mainClass>
+                            <mainClass>${start-class}</mainClass>
                     </manifest>
             	</archive>
      		</configuration>
@@ -135,7 +147,7 @@
         	<configuration>
             	<archive>
                 	<manifest>
-                    	<mainClass>sample.Application</mainClass>
+                    	<mainClass>${start-class}</mainClass>
                     </manifest>
                 </archive>
                 <descriptorRefs>
