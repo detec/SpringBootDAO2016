@@ -19,11 +19,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -44,11 +44,10 @@ import sample.util.CustomObjectMapper;
  * @author Andrii Duplyk
  *
  */
-// @RunWith(MockitoJUnitRunner.class)
-// @RunWith(SpringRunner.class)
+
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { AppConfiguration.class, DataBaseConfig.class, WebAppConfig.class })
-@WebAppConfiguration
+@SpringBootTest(classes = { AppConfiguration.class, DataBaseConfig.class, WebAppConfig.class })
+@AutoConfigureMockMvc
 public class ControllerTest {
 
 	/**
@@ -83,8 +82,7 @@ public class ControllerTest {
 
 		this.mockMvc = MockMvcBuilders.standaloneSetup(unit)
 
-				.setMessageConverters(this.jackson2HttpMessageConverter) // Important!
-				.build();
+				.setMessageConverters(this.jackson2HttpMessageConverter).build();
 
 		this.objectMapper = context.getBean(CustomObjectMapper.class);
 
