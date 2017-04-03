@@ -7,9 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import sample.domain.ExceptionJSONInfo;
@@ -21,8 +20,7 @@ import sample.exceptions.BusinessLogicException;
  * @author Andrii Duplyk
  *
  */
-@EnableWebMvc
-@ControllerAdvice(basePackages = { "sample.controller" })
+@RestControllerAdvice(basePackages = { "sample.controller" })
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
 	/**
